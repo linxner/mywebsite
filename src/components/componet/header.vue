@@ -35,14 +35,7 @@ export default {
   },
   watch: {
     topHeight() {
-      if (this.topHeight > 700) {
-        $('#header').css('background-color', '#666')
-        $('#header').css('color', '#fff')
-      }
-      else {
-        $('#header').css('color', '#000')
-        $('#header').css('background', 'rgba(255,255,255,0.3)')
-      }
+      
     },
   },
   mounted() {
@@ -70,7 +63,7 @@ export default {
   position: fixed;
   top: 0;
   z-index: 999;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: #fff
 }
 .menu {
   width: 1200px;
