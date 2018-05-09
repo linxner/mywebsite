@@ -11,7 +11,7 @@ import myHeader from './components/componet/header'
 import myFooter from './components/componet/footer'
 export default {
   data() {
-    return {};
+    return {}
   },
   components: {
     myFooter,
@@ -25,7 +25,7 @@ body {
   background-color: #ccc;
 }
 .content {
-  height: 2000px;
+  height: auto;
 }
 .icon {
    width: 1em; height: 1em;

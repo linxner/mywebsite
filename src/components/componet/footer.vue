@@ -30,10 +30,13 @@
 </template>
 <style>
 #footer {
+position: relative;
   background-color: #333;
   color: #fff;
   line-height: 60px;
   text-align: center;
+  z-index: 200;
+  padding-bottom: 2px;
 }
 .contactMe div {
   display: inline-block;
