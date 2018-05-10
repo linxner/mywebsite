@@ -34,7 +34,9 @@ export default {
     myLogin
   },
   watch: {
-   
+    topHeight() {
+      
+    },
   },
   mounted() {
     $(window).scroll(function () {
@@ -61,7 +63,7 @@ export default {
   position: fixed;
   top: 0;
   z-index: 999;
-  background-color: #fff;
+  background-color: #fff
 }
 .menu {
   width: 1200px;

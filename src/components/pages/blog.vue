@@ -7,21 +7,21 @@
           <div class="self-info-detail">
             <dl class="blog-detail">
               <dt>微博</dt>
-              <dd>{{blogIndex}}</dd>
+              <dd>{{blogSum}}</dd>
+            </dl>
+            <dl class="blog-detail">
+              <dt>喜欢</dt>
+              <dd>{{likedSum}}</dd>
             </dl>
             <dl class="blog-detail">
               <dt>粉丝</dt>
-              <dd>1</dd>
-            </dl>
-            <dl class="blog-detail">
-              <dt>订阅</dt>
               <dd>1</dd>
             </dl>
           </div>
         </div>
         <div class="self-btns">
           <el-button type="primary" icon="el-icon-edit" @click="editBlog">写微博</el-button>
-          <el-button type="success">关注</el-button>
+          <el-button type="success">我的关注</el-button>
         </div>
       </div>
       <div class="blog-content">
@@ -36,16 +36,16 @@
               </p>
               <div class="pzd">
                 <div>
-                  <i></i>
+                  <i class="el-icon-edit-outline"></i>
                   <span>评论</span>
                 </div>
                 <div>
-                  <i></i>
+                  <i class="el-icon-star-on" @click="like(item)" :class="{mylike:item.liked}"></i>
                   <span>喜欢</span>
                 </div>
                 <div>
                   <i></i>
-                  <span>转载</span>
+                  <span class="el-icon-share">转载</span>
                 </div>
               </div>
             </li>
@@ -72,50 +72,88 @@
               <el-input resize="none" type="textarea" :rows="2" placeholder="请输入内容" v-model="discription">
               </el-input>
             </el-col>
-            <el-col :span=2 :offset=7>
+            <!-- <el-col :span=4 :offset=5>
               <el-button type="primary" @click="confirmBlog">发布</el-button>
-            </el-col>
+              <el-button type="success" @click="returnBlog">取消</el-button>
+            </el-col> -->
           </el-row>
         </div>
       </div>
-      <el-input resize="none" type="textarea" placeholder="请输入内容" :autosize="{ minRows: 30, maxRows: 100}" v-model="confirmContent">
-      </el-input>
+      <el-input resize="none" type="textarea" placeholder="请输入内容" :autosize="{ minRows: 30, maxRows: 100}" v-model="confirmContent"></el-input>
+      <div class="confirm-btn">
+        <el-button type="primary" @click="confirmBlog">发布</el-button>
+        <el-button type="success" @click="returnBlog">取消</el-button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+var store = {
+  save(key, value) {
+    localStorage.setItem(key, JSON.stringify(value))
+  },
+  fetch(key) {
+    return JSON.parse(localStorage.getItem(key)) || []
+  }
+}
+var list = store.fetch('my-blog')
 export default {
   data() {
     return {
-      list: [],
+      list: list,
       control: false,
       confirmContent: '',
       discription: '',
-      title: ''
+      title: '',
+    }
+  },
+  computed: {
+    blogSum() {
+      return this.list.length
+    },
+    likedSum() {
+      return this.list.filter(function (item) {
+        return item.liked
+      }).length
     }
   },
   methods: {
     confirmBlog() {
-      this.control = false
-      if (this.discription && this.title !== '') {
+      if (this.confirmContent && this.title !== '') {
         this.list.push({
           title: this.title,
           confirmContent: this.confirmContent,
-          discription: this.discription
+          discription: this.discription,
+          liked: false
         })
+      this.control = false        
       }
-      this.title=''
-      this.confirmContent=''
-      this.discription=''
+      this.title = ''
+      this.confirmContent = ''
+      this.discription = ''
+    },
+    returnBlog() {
+      this.control = false
     },
     editBlog() {
       this.control = true
+    },
+    like(item) {
+      item.liked = !item.liked
+    }
+  },
+  watch: {
+    list: {
+      handler: function () {
+        store.save('my-blog', this.list)
+      },
+      deep: true
+
     }
   }
-};
+}
 </script>
-
 <style <style lang="less" scoped>
 .control {
   .blog-show {
@@ -132,6 +170,9 @@ export default {
   margin: 50px auto 0;
   background-color: #fff;
   padding: 0;
+  .confirm-btn {
+    padding: 20px;
+  }
 }
 
 .blog-show {
@@ -190,6 +231,9 @@ export default {
           line-height: 2;
           font-size: 14px;
           border-bottom: 1px solid #e4e7ed;
+          &:hover {
+            background-color: #f2f6fc;
+          }
           span {
             cursor: pointer;
           }
@@ -200,6 +244,9 @@ export default {
             color: #909399;
             letter-spacing: 0.5em;
             margin-right: 10px;
+            .mylike {
+              color: #f56c6c;
+            }
             div {
               display: inline-block;
               letter-spacing: normal;
@@ -226,9 +273,6 @@ export default {
         line-height: 50px;
         text-align: center;
         font-size: 16px;
-        .confirm-btn {
-          margin-right: 20px;
-        }
       }
       .edit-txt {
         padding: 5px;
