@@ -11,7 +11,7 @@
         <el-input v-model="form.password1" type="password"></el-input>
       </el-form-item>
       <el-form-item label="生日:">
-        <el-col :span="13">
+        <el-col :span="15">
           <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
         </el-col>
       </el-form-item>
@@ -23,7 +23,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary">立即注册</el-button>
-        <el-button >取消</el-button>
+        <el-button @click="hideLogin">取消</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -45,7 +45,9 @@
       }
     },
     methods: {
-      
+      hideLogin(){
+        this.$emit('hideLogin')
+      }
     }
   }
 </script>

@@ -7,10 +7,6 @@
     </div>
   </div>
 </template>
-<style>
-
-</style>
-
 <script>
 import myCarousel from  '../componet/carousel'
 export default {
@@ -22,3 +18,8 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+#mypage{
+  margin-top: 60px;
+}
+</style>

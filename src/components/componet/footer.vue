@@ -15,10 +15,10 @@
                                     <img src="../../assets/images/weixin.jpg" alt="" style="width:100px">
                                 </span>
                             </div>
-                            <div class="email">
+                            <div class="email" title="Email">
                                 <i class="iconfont">&#xe667;</i>
                             </div>
-                            <div class="weibo">
+                            <div class="weibo" title="微博">
                                 <i class="iconfont">&#xe61d;</i>
                             </div>
                         </div>
@@ -30,12 +30,14 @@
 </template>
 <style>
 #footer {
-    position: relative;
-  background-color: #909399;
+    width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #333;
   color: #fff;
   line-height: 60px;
   text-align: center;
-  z-index: 99;
+  z-index: 8;
   padding-bottom: 3px;
 }
 .contactMe div {
@@ -52,8 +54,8 @@
 }
 .weixin span {
   position: absolute;
-  top: 50px;
-  left: 0;
+  top: -85px;
+  left: -35px;
   display: none;
 }
 .weixin:hover span {

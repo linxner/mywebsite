@@ -1,65 +1,65 @@
 <template>
-  <div class="loginpage">  
+  <div class="loginpage" v-if="hide">
     <div class="container">
-       <span class="el-icon-close" @click="hideLogin"></span>
-       <div id="register">
-        <my-register></my-register>
+      <i class="el-icon-close" @click="hideLogin"></i>
+      <div id="register" v-if="register">
+        <my-register @hideLogin="hideLogin"></my-register>
       </div>
-      <div class="loginContainer">
-      <el-row>
-        <el-col :span="24">
-          <span class="accountLogin">账号登录</span>
-        </el-col>
-      </el-row>
-      <div class="inputname">
-        <el-input placeholder="请输入用户名/手机号/邮箱" v-model="input" clearable prefix-icon="iconfont icon-user"></el-input>
-      </div>
-      <div class="password">
-        <el-input placeholder="请输入密码" v-model="password" clearable type="password" prefix-icon="iconfont icon-cdiconpassword"></el-input>
-      </div>
-      <div class="auto">
+      <div class="loginContainer" v-if="login">
         <el-row>
-          <el-col :span="12" class="autoLogin">
-            <el-checkbox v-model="checked">下次自动登录</el-checkbox>
-          </el-col>
-          <el-col :span="12" class="greyPassword">
-            <span>忘记密码？</span>
+          <el-col :span="24">
+            <span class="accountLogin">账号登录</span>
           </el-col>
         </el-row>
-      </div>
-      <div class="loginBtn">
-        <el-row>
-          <el-button type="primary" style="width:100%">登录</el-button>
-        </el-row>
-      </div>
-      <div class="noAccount">
-        <el-row>
-          <el-col :span="12" :offset="6">没有账号？请
-            <span class="pleaseReg" @click="register">注册</span>
-          </el-col>
-        </el-row>
-      </div>
-      <div class="otherLogin">
-        <div class="loginElse">
+        <div class="inputname">
+          <el-input placeholder="请输入用户名/手机号/邮箱" v-model="input" clearable prefix-icon="iconfont icon-user"></el-input>
+        </div>
+        <div class="password">
+          <el-input placeholder="请输入密码" v-model="password" clearable type="password" prefix-icon="iconfont icon-cdiconpassword"></el-input>
+        </div>
+        <div class="auto">
           <el-row>
-            <el-col :span="24">使用第三方账号登录:</el-col>
+            <el-col :span="12" class="autoLogin">
+              <el-checkbox v-model="checked">下次自动登录</el-checkbox>
+            </el-col>
+            <el-col :span="12" class="greyPassword">
+              <span>忘记密码？</span>
+            </el-col>
           </el-row>
         </div>
-        <div class="loginLogo">
-          <el-col :span="24">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-QQ"></use>
-            </svg>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-weixin"></use>
-            </svg>
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-weibo"></use>
-            </svg>
-          </el-col>
+        <div class="loginBtn">
+          <el-row>
+            <el-button type="primary" style="width:100%">登录</el-button>
+          </el-row>
+        </div>
+        <div class="noAccount">
+          <el-row>
+            <el-col :span="12" :offset="6">没有账号？请
+              <span class="pleaseReg" @click="registerTo">注册</span>
+            </el-col>
+          </el-row>
+        </div>
+        <div class="otherLogin">
+          <div class="loginElse">
+            <el-row>
+              <el-col :span="24">使用第三方账号登录:</el-col>
+            </el-row>
+          </div>
+          <div class="loginLogo">
+            <el-col :span="24">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-QQ"></use>
+              </svg>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-weixin"></use>
+              </svg>
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-weibo"></use>
+              </svg>
+            </el-col>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 
@@ -68,11 +68,25 @@
 import myRegister from '../pages/register'
 
 export default {
+  props: {
+    register: {
+      type: Boolean,
+      default: true,
+    },
+    login: {
+      type: Boolean,
+      default: true,
+    },
+    hide: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       input: '',
       password: '',
-      checked: false
+      checked: false,
     }
   },
   components: {
@@ -80,14 +94,10 @@ export default {
   },
   methods: {
     hideLogin() {
-      $('.loginpage').hide()
-      $('.loginContainer').show()
-      $('.register').hide()
+      this.$emit('hideLogin')
     },
-    register() {
-       $('.loginpage').show()
-      $('.loginContainer').hide()
-      $('.register').show()
+    registerTo() {
+      this.$emit('toRegister')
     }
   }
 }
@@ -98,8 +108,7 @@ export default {
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
   position: fixed;
-  z-index: 9999;
-  display: none;
+  z-index: 99;
   text-align: center;
 }
 .container {
@@ -176,8 +185,5 @@ export default {
 }
 .otherLogin {
   letter-spacing: -0.5em;
-}
-.register {
-  display: none;
 }
 </style>

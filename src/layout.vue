@@ -23,7 +23,6 @@ export default {
 body {
   font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
   min-width: 1000px;  
-  background-color: #ccc;
 }
 .icon {
    width: 1em; height: 1em;

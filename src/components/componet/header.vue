@@ -4,20 +4,20 @@
       <div class="menu">
         <div class="login">
           <!-- 登录 -->
-          <span class="denglu" @click="login">登录</span>
+          <span class="denglu" @click="loginTo">登录</span>
           <span>/</span>
           <!-- 注册 -->
-         <span class="zhuce" @click="register">注册</span>
+          <span class="zhuce" @click="registerTo">注册</span>
         </div>
         <ul class="menulis">
           <router-link to="/" tag="li">首页</router-link>
-          <router-link to="/experience" tag="li">个人经历</router-link>
+          <router-link to="/project" tag="li">个人项目</router-link>
           <router-link to="/blog" tag="li">个人博客</router-link>
           <router-link to="/journal" tag="li">我的日志</router-link>
         </ul>
       </div>
     </div>
-    <my-login></my-login>         
+    <my-login :login="login" :register="register" :hide="hide" @hideLogin="hideLogin" @toRegister="toRegister"></my-login>
   </div>
 </template>
 <script>
@@ -28,6 +28,9 @@ export default {
     return {
       message: '',
       topHeight: '',
+      login: true,
+      register: false,
+      hide: false
     }
   },
   components: {
@@ -35,7 +38,7 @@ export default {
   },
   watch: {
     topHeight() {
-      
+
     },
   },
   mounted() {
@@ -45,13 +48,22 @@ export default {
   },
 
   methods: {
-    login(){
-      $('.loginpage').show()
+    loginTo() {
+      this.hide = true
+      this.login = true
+      this.register = false
     },
-    register() {
-       $('.loginpage').show()
-      $('.loginContainer').hide()
-      $('.register').show()
+    registerTo() {
+      this.hide = true
+      this.login = false
+      this.register = true
+    },
+    hideLogin(e) {
+      this.hide = false
+    },
+    toRegister() {
+      this.register = true
+      this.login = false
     }
   }
 }
@@ -59,11 +71,12 @@ export default {
 <style scope lang="less">
 #header {
   width: 100%;
-  height: 50px;
+  height: 60px;
   position: fixed;
   top: 0;
-  z-index: 999;
-  background-color: #fff
+  z-index: 9;
+  background-color: #fff;
+  line-height: 60px;
 }
 .menu {
   width: 1200px;
@@ -81,7 +94,6 @@ export default {
   display: inline-block;
   font-size: 18px;
   padding: 0 25px;
-  line-height: 50px;
   cursor: pointer;
 }
 .menulis li:hover {
@@ -94,15 +106,14 @@ export default {
   font-size: 14px;
 }
 .login span {
-  line-height: 50px;
   cursor: pointer;
   float: left;
 }
-.denglu:hover{
-  color: #E6A23C;
+.denglu:hover {
+  color: #e6a23c;
 }
-.zhuce:hover{
-  color:#E6A23C;
+.zhuce:hover {
+  color: #e6a23c;
 }
 </style>
 

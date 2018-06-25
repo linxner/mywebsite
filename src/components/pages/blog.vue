@@ -79,7 +79,7 @@
           </el-row>
         </div>
       </div>
-      <el-input resize="none" type="textarea" placeholder="请输入内容" :autosize="{ minRows: 30, maxRows: 100}" v-model="confirmContent"></el-input>
+      <el-input autofocus="true" resize="none" type="textarea" placeholder="请输入内容" :autosize="{ minRows: 27, maxRows: 100}" v-model="confirmContent"></el-input>
       <div class="confirm-btn">
         <el-button type="primary" @click="confirmBlog">发布</el-button>
         <el-button type="success" @click="returnBlog">取消</el-button>
@@ -127,10 +127,14 @@ export default {
           discription: this.discription,
           liked: false
         })
-      this.control = false        
+        this.title = ''
+        this.confirmContent = ''
+        this.control = false
       }
-      this.title = ''
-      this.confirmContent = ''
+      if (this.title === '') {
+        alert('请输入标题')
+      }
+
       this.discription = ''
     },
     returnBlog() {
@@ -166,7 +170,6 @@ export default {
 
 .container {
   width: 1140px;
-  height: 1000px;
   margin: 50px auto 0;
   background-color: #fff;
   padding: 0;
@@ -178,8 +181,9 @@ export default {
 .blog-show {
   .blog-aside {
     width: 300px;
-    height: 900px;
     position: fixed;
+    top: 60px;
+    bottom: 0;
     background-color: #ebeef5;
     .self-btns {
       width: 100%;
@@ -276,12 +280,9 @@ export default {
       }
       .edit-txt {
         padding: 5px;
-        height: 30px;
         border: none;
         width: 99%;
-        height: 900px;
-        outline: none;
-        resize: none;
+        height: 850px;
         font-size: 16px;
       }
     }
