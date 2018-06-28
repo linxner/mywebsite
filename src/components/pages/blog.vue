@@ -28,7 +28,7 @@
         <div class="blog-list">
           <ul class="blog-lists">
             <li v-for="item in list" :key="item.id">
-              <h2>
+              <h2 @click="toBLog(item)">
                 <span>{{item.title}}</span>
               </h2>
               <p>
@@ -54,7 +54,6 @@
       </div>
     </div>
     <div class="blog-hide">
-
       <div class="blogedit">
         <div class="blog-edit">
           <el-row class="edit-nav">
@@ -125,16 +124,13 @@ export default {
           title: this.title,
           confirmContent: this.confirmContent,
           discription: this.discription,
-          liked: false
+          liked: false,
+          blogID: parseInt(Math.random() * 10000)
         })
         this.title = ''
         this.confirmContent = ''
         this.control = false
       }
-      if (this.title === '') {
-        alert('请输入标题')
-      }
-
       this.discription = ''
     },
     returnBlog() {
@@ -145,6 +141,9 @@ export default {
     },
     like(item) {
       item.liked = !item.liked
+    },
+    toBLog(item) {
+      this.$router.push(`/blog/${item.blogID}`)
     }
   },
   watch: {
@@ -153,7 +152,6 @@ export default {
         store.save('my-blog', this.list)
       },
       deep: true
-
     }
   }
 }
@@ -170,7 +168,7 @@ export default {
 
 .container {
   width: 1140px;
-  margin: 50px auto 0;
+  margin: 60px auto 0;
   background-color: #fff;
   padding: 0;
   .confirm-btn {
@@ -229,7 +227,7 @@ export default {
         li {
           position: relative;
           box-sizing: border-box;
-          padding-left: 10px;
+          padding: 0 0 25px 15px;
           width: 100%;
           color: #303133;
           line-height: 2;
@@ -247,7 +245,7 @@ export default {
             right: 0;
             color: #909399;
             letter-spacing: 0.5em;
-            margin-right: 10px;
+            margin: 0px 10px 0 0;
             .mylike {
               color: #f56c6c;
             }
