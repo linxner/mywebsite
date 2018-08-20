@@ -4,6 +4,7 @@ import Vue from 'vue'
 import router from './router'
 import Layout from './layout'
 import './assets/css/normalize.css'
+import './server/server'
 //引入jQuery
 import $ from 'jquery'
 //引入element-ui
@@ -11,7 +12,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/iconfont/iconfont.css'
 import './assets/iconfont/iconfont.js'
-import 'less'
+
 
 Vue.prototype.$=$
 Vue.config.productionTip = false
