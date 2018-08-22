@@ -84,6 +84,7 @@
         <el-button type="success" @click="returnBlog">取消</el-button>
       </div>
     </div>
+    <div></div>
   </div>
 </template>
 
@@ -167,7 +168,7 @@ export default {
 }
 
 .container {
-  width: 1140px;
+  width: 1000px;
   margin: 60px auto 0;
   background-color: #fff;
   padding: 0;
