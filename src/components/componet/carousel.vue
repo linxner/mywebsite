@@ -6,6 +6,8 @@
                     <img :src="item.url" alt="">
                 </el-carousel-item>
             </el-carousel>
+            <div></div>
+            <div></div>
         </div>
     </div>
 </template>
