@@ -1,5 +1,8 @@
 <template>
   <div class="loginpage" v-if="hide">
+    <div></div>
+    <div></div>
+    <div></div>
     <div class="container">
       <i class="el-icon-close" @click="hideLogin"></i>
       <div id="register" v-if="register">
